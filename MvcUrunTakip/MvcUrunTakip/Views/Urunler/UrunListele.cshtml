@@ -1,0 +1,43 @@
+﻿@using MvcUrunTakip.Models.Entities
+@model List<tblUrun>
+@{
+    ViewBag.Title = "UrunListele";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Urun Listele</h2>
+@using (Html.BeginForm("UrunListele", "Urunler", FormMethod.Get))
+            {
+                <p>
+                    Ürün Adı : @Html.TextBox("aranan")
+                    <input type="submit" value="Ara"/>
+                </p>
+            }
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Urun Ad</th>
+        <th>Urun Marka</th>
+        <th>Urun Stok</th>
+        <th>Urun Alış Fiyatı</th>
+        <th>Urun Satış Fiyatı</th>
+        <th>Kategori Ad</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+    </tr>
+    @foreach (var x in Model)
+    {
+        <tr>
+            <td>@x.Urun_Id</td>
+            <td>@x.Urun_Ad</td>
+            <td>@x.Urun_Marka</td>
+            <td>@x.Urun_Stok</td>
+            <td>@x.Urun_AlisFiyat</td>
+            <td>@x.Urun_SatisFiyat</td>
+            <td>@x.tblKategori.Kategori_Ad</td>
+            <td style="width : 10%;"><a href="/Urunler/UrunSil/@x.Urun_Id" class="btn btn-danger">Sil</a></td>
+            <td style="width : 10%;"><a href="/Urunler/UrunGuncelle/@x.Urun_Id" class="btn btn-primary">Güncelle</a></td>
+        </tr>
+        }
+</table>
+<a href="/Urunler/UrunEkle" class="btn btn-success">Ekle</a>

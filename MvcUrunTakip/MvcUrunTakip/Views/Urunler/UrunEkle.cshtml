@@ -1,0 +1,44 @@
+﻿@using MvcUrunTakip.Models.Entities
+@model tblUrun 
+@{
+    ViewBag.Title = "UrunEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<form method="post" action="/Urunler/UrunEkle">
+    <br />
+    <h2>Urun Ekle Sayfası</h2>
+    <br />
+    <div class="form-group">
+        <label>Urun Adı Giriniz : </label>
+        <input type="text" class="form-control" name="Urun_Ad" placeholder="Urun Ad..." />
+    </div>
+    <br />
+    <div class="form-group">
+        <label>Urun Marka Giriniz : </label>
+        <input type="text" class="form-control" name="Urun_Marka" placeholder="Urun Marka..." />
+    </div>
+    <br />
+    <div class="form-group">
+        <label>Urun Stok Giriniz : </label>
+        <input type="text" class="form-control" name="Urun_Stok" placeholder="Urun Stok..." />
+    </div>
+    <br />
+    <div class="form-group">
+        <label>Urun Alış Fiyatı Giriniz : </label>
+        <input type="text" class="form-control" name="Urun_AlisFiyat" placeholder="Urun Alış Fiyatı..." />
+    </div>
+    <br />
+    <div class="form-group">
+        <label>Urun Satış Fiyatı Giriniz :</label>
+        <input type="text" class="form-control" name="Urun_SatisFiyat" placeholder="Urun Satış Fiyatı..." />
+    </div>
+    <br />
+    <div class="form-group">
+        <label >Ürün Kategori Seçiniz :</label>
+        @Html.DropDownListFor(x => x.tblKategori.Kategori_Id,(List<SelectListItem>)ViewBag.DropKtg,new { @class ="form-control"})
+    </div>
+    <br />
+    <button class="btn btn-success" type="submit">Kaydet</button>
+</form>

@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbMvcStokModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Kategori">
+    <Key>
+      <PropertyRef Name="Kategori_Id" />
+    </Key>
+    <Property Name="Kategori_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Kategori_Ad" Type="nchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Musteri">
+    <Key>
+      <PropertyRef Name="Musteri_Id" />
+    </Key>
+    <Property Name="Musteri_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Musteri_Ad" Type="nvarchar" MaxLength="30" />
+    <Property Name="Musteri_Soyad" Type="nvarchar" MaxLength="30" />
+    <Property Name="Musteri_Sehir" Type="nvarchar" MaxLength="20" />
+    <Property Name="Musteri_Bakiye" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="Personel">
+    <Key>
+      <PropertyRef Name="Personel_Id" />
+    </Key>
+    <Property Name="Personel_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Personel_Ad" Type="nvarchar" MaxLength="50" />
+    <Property Name="Personel_Soyad" Type="nvarchar" MaxLength="50" />
+    <Property Name="Personel_Departman" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Satıslar">
+    <Key>
+      <PropertyRef Name="Satis_Id" />
+    </Key>
+    <Property Name="Satis_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Satis_Urun" Type="int" />
+    <Property Name="Satis_Personel" Type="int" />
+    <Property Name="Satis_Fiyat" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Satis_Tarih" Type="smalldatetime" />
+    <Property Name="Satıs_Musteri" Type="int" />
+  </EntityType>
+  <EntityType Name="Urun">
+    <Key>
+      <PropertyRef Name="Urun_Id" />
+    </Key>
+    <Property Name="Urun_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Urun_Ad" Type="nvarchar" MaxLength="70" />
+    <Property Name="Urun_Marka" Type="nvarchar" MaxLength="50" />
+    <Property Name="Urun_Stok" Type="smallint" />
+    <Property Name="Urun_AlisFiyat" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Urun_SatisFiyat" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Kategori" Type="int" />
+  </EntityType>
+  <Association Name="FK_Satıslar_Musteri">
+    <End Role="Musteri" Type="Self.Musteri" Multiplicity="0..1" />
+    <End Role="Satıslar" Type="Self.Satıslar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Musteri">
+        <PropertyRef Name="Musteri_Id" />
+      </Principal>
+      <Dependent Role="Satıslar">
+        <PropertyRef Name="Satıs_Musteri" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Satıslar_Personel">
+    <End Role="Personel" Type="Self.Personel" Multiplicity="0..1" />
+    <End Role="Satıslar" Type="Self.Satıslar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personel">
+        <PropertyRef Name="Personel_Id" />
+      </Principal>
+      <Dependent Role="Satıslar">
+        <PropertyRef Name="Satis_Personel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Satıslar_Urun">
+    <End Role="Urun" Type="Self.Urun" Multiplicity="0..1" />
+    <End Role="Satıslar" Type="Self.Satıslar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Urun">
+        <PropertyRef Name="Urun_Id" />
+      </Principal>
+      <Dependent Role="Satıslar">
+        <PropertyRef Name="Satis_Urun" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Urun_Kategori">
+    <End Role="Kategori" Type="Self.Kategori" Multiplicity="0..1" />
+    <End Role="Urun" Type="Self.Urun" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategori">
+        <PropertyRef Name="Kategori_Id" />
+      </Principal>
+      <Dependent Role="Urun">
+        <PropertyRef Name="Kategori" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbMvcStokModelStoreContainer">
+    <EntitySet Name="Kategori" EntityType="Self.Kategori" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Musteri" EntityType="Self.Musteri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Personel" EntityType="Self.Personel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Satıslar" EntityType="Self.Satıslar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Urun" EntityType="Self.Urun" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Satıslar_Musteri" Association="Self.FK_Satıslar_Musteri">
+      <End Role="Musteri" EntitySet="Musteri" />
+      <End Role="Satıslar" EntitySet="Satıslar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Satıslar_Personel" Association="Self.FK_Satıslar_Personel">
+      <End Role="Personel" EntitySet="Personel" />
+      <End Role="Satıslar" EntitySet="Satıslar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Satıslar_Urun" Association="Self.FK_Satıslar_Urun">
+      <End Role="Urun" EntitySet="Urun" />
+      <End Role="Satıslar" EntitySet="Satıslar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Urun_Kategori" Association="Self.FK_Urun_Kategori">
+      <End Role="Kategori" EntitySet="Kategori" />
+      <End Role="Urun" EntitySet="Urun" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

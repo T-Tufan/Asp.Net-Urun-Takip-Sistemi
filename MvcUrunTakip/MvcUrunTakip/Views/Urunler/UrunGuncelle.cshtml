@@ -1,0 +1,48 @@
+﻿@using MvcUrunTakip.Models.Entities
+@model tblUrun
+@{
+    ViewBag.Title = "UrunGuncelle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<form method="post">
+    <br />
+    <h2>Urun Güncelle Sayfası</h2>
+    <br />
+    <div class="form-group">
+        <input type="hidden" name="urun_Id" value="@Model.Urun_Id" />
+    </div>
+    <div>
+        <label>Ürün Ad</label>
+        <input class="form-control" value="@Model.Urun_Ad" type="text" name="Urun_Ad" />
+    </div>
+    <br />
+    <div>
+        <label>Ürün Marka</label>
+        <input class="form-control" value="@Model.Urun_Marka" type="text" name="Urun_Marka" />
+    </div>
+    <br />
+    <div>
+        <label>Ürün Stok</label>
+        <input class="form-control" value="@Model.Urun_Stok" type="text" name="Urun_Stok" />
+    </div>
+    <br />
+    <div>
+        <label>Ürün Alış Fiyatı</label>
+        <input class="form-control" value="@Model.Urun_AlisFiyat" type="text" name="Urun_AlisFiyat" />
+    </div>
+    <br />
+    <div>
+        <label>Ürün Satış Fiyatı</label>
+        <input class="form-control" value="@Model.Urun_SatisFiyat" type="text" name="Urun_SatisFiyat" />
+    </div>
+    <br />
+    <div>
+        <label>Ürün Kategori Seç</label>
+        @Html.DropDownListFor(x => x.tblKategori.Kategori_Id, (List<SelectListItem>)ViewBag.DropKtg, new { @class = "form-control" })
+    </div>
+    <br />
+    <button class="btn btn-primary">Güncelle</button>
+</form>

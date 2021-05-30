@@ -1,0 +1,36 @@
+﻿@using MvcUrunTakip.Models.Entities
+@model List<tblSatislar>
+@{
+    ViewBag.Title = "SatisListele";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Satışlar Listelesi</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Satılan Ürün</th>
+        <th>Satışı Yapan Personel</th>
+        <th>Satın Alan Müşteri</th>
+        <th>Satış Fiyatı</th>
+        <th>Satış Tarihi</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+    </tr>
+    @foreach (var x in Model)
+    {
+<tr>
+    <td>@x.Satis_Id</td>
+    <td>@x.tblUrun.Urun_Ad</td>
+    <td>@x.tblPersonel.Personel_Ad @x.tblPersonel.Personel_Soyad</td>
+    <td>@x.tblMusteri.Musteri_Ad @x.tblMusteri.Musteri_Soyad</td>
+    <td>@x.Satis_Fiyat</td>
+    <td>@x.Satis_Tarih.Value.ToString("dd/MM/yyyy")</td>
+    <td style="width : 10%;"><a href="/Musteriler/MusteriSil/@x.Satis_Id" class="btn btn-danger">Sil</a></td>
+    <td style="width : 10%;"><a href="/Musteriler/MusteriGuncelle/@x.Satis_Id" class="btn btn-primary">Güncelle</a></td>
+</tr>
+    }
+</table>
+<br />
+<a href="/Satislar/SatisEkle/" class="btn btn-success">Yeni Satış İşlemi</a>

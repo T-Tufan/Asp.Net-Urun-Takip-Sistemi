@@ -1,0 +1,20 @@
+﻿@using MvcUrunTakip.Models.Entities
+@model tblKategori
+@{
+    ViewBag.Title = "KategoriGuncelle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<form method="post">
+    <br />
+    <h2>Kategori Guncelle Sayfası</h2>
+    <br />
+    <div class="form-group">
+        <input type="hidden" name="Kategori_Id" value="@Model.Kategori_Id" />
+        <label>Kategori Ad</label>
+        <input class="form-control" value="@Model.Kategori_Ad" type="text" name="Kategori_Ad" />
+        <br />
+    </div>
+    <button class="btn btn-primary">Güncelle</button>
+</form>

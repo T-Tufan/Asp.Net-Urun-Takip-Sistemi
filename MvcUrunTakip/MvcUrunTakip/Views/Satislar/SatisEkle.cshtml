@@ -1,0 +1,34 @@
+﻿@using MvcUrunTakip.Models.Entities
+@model tblSatislar
+@{
+    ViewBag.Title = "SatisEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<form method="post" action="/Satislar/SatisEkle">
+    <br />
+    <h2>Satis Ekle Sayfası</h2>
+    <br />
+    <div class="form-group">
+        <label>Ürün Adı Seçiniz : </label>
+        @Html.DropDownListFor(x => x.tblUrun.Urun_Id, (List<SelectListItem>)ViewBag.urunler, new { @class = "form-control" })
+    </div>
+    <br />
+    <div class="form-group">
+        <label>Personel Adı Seçiniz : </label>
+        @Html.DropDownListFor(x => x.tblPersonel.Personel_Id, (List<SelectListItem>)ViewBag.personeller, new { @class = "form-control" })
+    </div>
+    <br />
+    <div class="form-group">
+        <label>Satış Fiyatı Giriniz : </label>
+        @Html.TextBoxFor(x => x.Satis_Fiyat, new {@class = "form-control w-25"})
+    </div>
+    <br />
+    <div class="form-group">
+        <label>Müşteri Adı Seçiniz : </label>
+        @Html.DropDownListFor(x => x.tblMusteri.Musteri_Id, (List<SelectListItem>)ViewBag.musteriler, new { @class = "form-control" })
+    </div>
+    <br />
+    <button class="btn btn-success" type="submit">Kaydet</button>
+</form>

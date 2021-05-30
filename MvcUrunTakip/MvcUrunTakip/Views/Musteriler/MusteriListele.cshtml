@@ -1,0 +1,37 @@
+﻿@using MvcUrunTakip.Models.Entities;
+@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<tblMusteri>
+@{
+    ViewBag.Title = "MusteriListele";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>MusteriListele</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Müşteri Ad</th>
+        <th>Müşteri Soyad</th>
+        <th>Müşteri Şehir</th>
+        <th>Müşteri Bakiye</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+    </tr>
+    @foreach (var x in Model)
+    {
+        <tr>
+            <td>@x.Musteri_Id</td>
+            <td>@x.Musteri_Ad</td>
+            <td>@x.Musteri_Soyad</td>
+            <td>@x.Musteri_Sehir</td>
+            <td>@x.Musteri_Bakiye</td>
+            <td style="width : 10%;"><a href="/Musteriler/MusteriSil/@x.Musteri_Id" class="btn btn-danger">Sil</a></td>
+            <td style="width : 10%;"><a href="/Musteriler/MusteriGuncelle/@x.Musteri_Id" class="btn btn-primary">Güncelle</a></td>
+        </tr>
+    }
+</table>
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("MusteriListele", new { page }))
+<br />
+<a href="/Musteriler/MusteriEkle" class="btn btn-success">Ekle</a>

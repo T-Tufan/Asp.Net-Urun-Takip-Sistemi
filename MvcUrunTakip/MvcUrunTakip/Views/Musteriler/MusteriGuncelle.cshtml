@@ -1,0 +1,37 @@
+﻿@using MvcUrunTakip.Models.Entities
+@model tblMusteri
+@{
+    ViewBag.Title = "MusteriGuncelle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<form method="post">
+    <br />
+    <h2>Müşteri Güncelle Sayfası</h2>
+    <br />
+    <div class="form-group">
+        <input type="hidden" value="@Model.Musteri_Id" name="Musteri_Id"/>
+    </div>
+    <div>
+        <label>Ürün Ad</label>
+        <input class="form-control" value="@Model.Musteri_Ad" type="text" name="Musteri_Ad" />
+    </div>
+    <br />
+    <div>
+        <label>Ürün Marka</label>
+        <input class="form-control" value="@Model.Musteri_Soyad" type="text" name="Musteri_Soyad" />
+    </div>
+    <br />
+    <div>
+        <label>Ürün Stok</label>
+        <input class="form-control" value="@Model.Musteri_Sehir" type="text" name="Musteri_Sehir" />
+    </div>
+    <br />
+    <div>
+        <label>Ürün Alış Fiyatı</label>
+        <input class="form-control" value="@Model.Musteri_Bakiye" type="text" name="Musteri_Bakiye" />
+    </div>
+    <br />
+    <button class="btn btn-primary">Güncelle</button>
+</form>

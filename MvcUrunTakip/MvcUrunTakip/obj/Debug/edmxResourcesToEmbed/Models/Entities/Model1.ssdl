@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbMvcStokModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="tblAdmin">
+    <Key>
+      <PropertyRef Name="Admin_Id" />
+    </Key>
+    <Property Name="Admin_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Admin_Kullanici_Ad" Type="nvarchar" MaxLength="20" />
+    <Property Name="Admin_Sifre" Type="nvarchar" MaxLength="18" />
+  </EntityType>
+  <EntityType Name="tblKategori">
+    <Key>
+      <PropertyRef Name="Kategori_Id" />
+    </Key>
+    <Property Name="Kategori_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Kategori_Ad" Type="nchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblMusteri">
+    <Key>
+      <PropertyRef Name="Musteri_Id" />
+    </Key>
+    <Property Name="Musteri_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Musteri_Ad" Type="nvarchar" MaxLength="30" />
+    <Property Name="Musteri_Soyad" Type="nvarchar" MaxLength="30" />
+    <Property Name="Musteri_Sehir" Type="nvarchar" MaxLength="20" />
+    <Property Name="Musteri_Bakiye" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Musteri_Durum" Type="bit" />
+  </EntityType>
+  <EntityType Name="tblPersonel">
+    <Key>
+      <PropertyRef Name="Personel_Id" />
+    </Key>
+    <Property Name="Personel_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Personel_Ad" Type="nvarchar" MaxLength="50" />
+    <Property Name="Personel_Soyad" Type="nvarchar" MaxLength="50" />
+    <Property Name="Personel_Departman" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblSatislar">
+    <Key>
+      <PropertyRef Name="Satis_Id" />
+    </Key>
+    <Property Name="Satis_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Satis_Urun" Type="int" />
+    <Property Name="Satis_Personel" Type="int" />
+    <Property Name="Satis_Fiyat" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Satis_Tarih" Type="smalldatetime" />
+    <Property Name="Satıs_Musteri" Type="int" />
+  </EntityType>
+  <EntityType Name="tblUrun">
+    <Key>
+      <PropertyRef Name="Urun_Id" />
+    </Key>
+    <Property Name="Urun_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Urun_Ad" Type="nvarchar" MaxLength="70" />
+    <Property Name="Urun_Marka" Type="nvarchar" MaxLength="50" />
+    <Property Name="Urun_Stok" Type="smallint" />
+    <Property Name="Urun_AlisFiyat" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Urun_SatisFiyat" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Kategori" Type="int" />
+    <Property Name="Durum" Type="bit" />
+  </EntityType>
+  <Association Name="FK_Satıslar_Musteri">
+    <End Role="tblMusteri" Type="Self.tblMusteri" Multiplicity="0..1" />
+    <End Role="tblSatislar" Type="Self.tblSatislar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMusteri">
+        <PropertyRef Name="Musteri_Id" />
+      </Principal>
+      <Dependent Role="tblSatislar">
+        <PropertyRef Name="Satıs_Musteri" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Satıslar_Personel">
+    <End Role="tblPersonel" Type="Self.tblPersonel" Multiplicity="0..1" />
+    <End Role="tblSatislar" Type="Self.tblSatislar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblPersonel">
+        <PropertyRef Name="Personel_Id" />
+      </Principal>
+      <Dependent Role="tblSatislar">
+        <PropertyRef Name="Satis_Personel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Satıslar_Urun">
+    <End Role="tblUrun" Type="Self.tblUrun" Multiplicity="0..1" />
+    <End Role="tblSatislar" Type="Self.tblSatislar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUrun">
+        <PropertyRef Name="Urun_Id" />
+      </Principal>
+      <Dependent Role="tblSatislar">
+        <PropertyRef Name="Satis_Urun" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Urun_Kategori">
+    <End Role="tblKategori" Type="Self.tblKategori" Multiplicity="0..1" />
+    <End Role="tblUrun" Type="Self.tblUrun" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblKategori">
+        <PropertyRef Name="Kategori_Id" />
+      </Principal>
+      <Dependent Role="tblUrun">
+        <PropertyRef Name="Kategori" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbMvcStokModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblAdmin" EntityType="Self.tblAdmin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblKategori" EntityType="Self.tblKategori" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblMusteri" EntityType="Self.tblMusteri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblPersonel" EntityType="Self.tblPersonel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblSatislar" EntityType="Self.tblSatislar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUrun" EntityType="Self.tblUrun" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Satıslar_Musteri" Association="Self.FK_Satıslar_Musteri">
+      <End Role="tblMusteri" EntitySet="tblMusteri" />
+      <End Role="tblSatislar" EntitySet="tblSatislar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Satıslar_Personel" Association="Self.FK_Satıslar_Personel">
+      <End Role="tblPersonel" EntitySet="tblPersonel" />
+      <End Role="tblSatislar" EntitySet="tblSatislar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Satıslar_Urun" Association="Self.FK_Satıslar_Urun">
+      <End Role="tblUrun" EntitySet="tblUrun" />
+      <End Role="tblSatislar" EntitySet="tblSatislar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Urun_Kategori" Association="Self.FK_Urun_Kategori">
+      <End Role="tblKategori" EntitySet="tblKategori" />
+      <End Role="tblUrun" EntitySet="tblUrun" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "KategoriEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<form method="post" action="/Kategoriler/KategoriEkle">
+    <br />
+    <h2>Kategori Ekleme Sayfası</h2>
+    <br />
+    <label >Kategori Adı Giriniz</label>
+    <input type="text" class="form-control" name="Kategori_Ad" placeholder="Kategori Ad..." />
+    <br />
+    <button class="btn btn-success" type="submit">Kaydet</button>
+</form>

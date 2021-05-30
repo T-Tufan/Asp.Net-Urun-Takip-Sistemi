@@ -1,0 +1,27 @@
+﻿@using MvcUrunTakip.Models.Entities
+@model List<tblKategori>
+@{
+    ViewBag.Title = "Kategoriler";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Kategoriler Sayfası</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Kategori Ad</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+    </tr>
+    @foreach(var x in Model)
+       {
+            <tr>
+                <td>@x.Kategori_Id</td>
+                <td>@x.Kategori_Ad</td>
+                <td class="wdth"><a href="/Kategoriler/KategoriSil/@x.Kategori_Id" class="btn btn-danger">Sil</a></td>
+                <td class="wdth"><a href="/Kategoriler/KategoriGuncelle/@x.Kategori_Id" class="btn btn-primary">Güncelle</a></td>
+            </tr>
+       }
+</table>
+<a href="/Kategoriler/KategoriEkle" class="btn btn-success">Ekle</a>
